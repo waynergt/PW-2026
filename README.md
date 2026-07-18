@@ -36,7 +36,7 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 
 ---
 
-## ✅ Suite de Pruebas - Clase 01
+## ✅ Pruebas - Clase 01
 
 ### Versión de Node.js
 
