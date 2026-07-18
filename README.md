@@ -38,8 +38,14 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 
 ## ✅ Suite de Pruebas - Clase 01
 
-### Prueba 1: La página carga correctamente
-Validación de que la página principal se carga sin errores y el título es correcto.
+### Versión de Node.js
+
+![Captura 14: Reporte de Pruebas](./public/14_captura.png)
+
+---
+
+### Prueba 1
+Validación de que la página principal se carga sin errores, el menú de categorias es visible y la barra de navegación tiene los enlaces.
 
 ![Captura 1: Página Principal](./public/01_captura.png)
 ![Captura 2: Página Cargada](./public/02_captura.png)
@@ -47,22 +53,10 @@ Validación de que la página principal se carga sin errores y el título es cor
 
 ---
 
-### Prueba 2: El menú de categorías es visible
-Verificación de que la sección de categorías (Phones, Laptops, Monitors) está visible en la página.
+### Prueba 2
+Reporte HTML
 
 ![Captura 4: Menú de Categorías](./public/04_captura.png)
-
----
-
-### Prueba 3: La barra de navegación tiene los enlaces
-Validación de que todos los enlaces principales en la navegación están presentes y son visibles:
-- Home
-- Contact
-- About us
-- Cart
-- Log in
-- Sign up
-
 ![Captura 5: Barra de Navegación](./public/05_captura.png)
 ![Captura 6: Navegación Visible](./public/06_captura.png)
 ![Captura 7: Enlaces Validados](./public/07_captura.png)
@@ -70,17 +64,14 @@ Validación de que todos los enlaces principales en la navegación están presen
 
 ---
 
-## ✅ Suite de Pruebas - Clase 02
-
-### Prueba 1: La barra de navegación tiene los enlaces
-Suite avanzada que valida la presencia y visibilidad de todos los elementos de navegación con mayor profundidad.
+### Prueba 3 
+Modo Visual (Interfaz UI)
 
 ![Captura 9: Barra de Navegación Clase 02](./public/09_captura.png)
 ![Captura 10: Validación de Enlaces](./public/10_captura.png)
 ![Captura 11: Verificación de Elementos](./public/11_captura.png)
 ![Captura 12: Pruebas Ejecutándose](./public/12_captura.png)
 ![Captura 13: Validación Final](./public/13_captura.png)
-![Captura 14: Reporte de Pruebas](./public/14_captura.png)
 
 ---
 
@@ -139,35 +130,13 @@ https://www.demoblaze.com
 
 ---
 
-## 📁 Estructura del Proyecto
-
-```
-PW-2026/
-├── tests/
-│   ├── clase01.spec.ts
-│   └── clase02.spec.ts
-├── public/
-│   ├── 01_captura.png
-│   ├── 02_captura.png
-│   ├── ...
-│   └── 14_captura.png
-├── playwright-report/
-│   └── index.html
-├── playwright.config.ts
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
----
-
 ## 🔍 Elementos Validados
 
 ### Elementos de la Página Principal
 | Elemento | Localizador | Estado |
 |----------|------------|--------|
 | Título de la página | `STORE` | ✅ Visible |
-| Categorías | `#cat1`, `#cat2`, `#cat3` | ✅ Visibles |
+| Categorías | `#cat1` | ✅ Visibles |
 | Navegación | `#navbarExample` | ✅ Completa |
 | Enlaces | Home, Contact, About us, Cart, Log in, Sign up | ✅ Funcionales |
 
@@ -191,7 +160,7 @@ PW-2026/
 
 ---
 
-## 📅 Fecha de Realización
+## 📅 Fecha de Entrega
 
 **17 de julio de 2026**
 
