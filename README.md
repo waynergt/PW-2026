@@ -92,27 +92,27 @@ Tiempo total: 6.3s
 
 A continuación se incluyen todas las capturas registradas durante la ejecución de la suite `clase02.spec.ts` (carpeta `evidencias`).
 
-# Página Inicio
+### Página Inicio
 ![Captura 01: Página Inicio](./evidencias/01-pagina-inicio.png)
 
-# Página Carrito
+### Página Carrito
 ![Captura 02: Carrito](./evidencias/02-pagina-carrito.png)
 
-# Detalle Producto
+### Detalle Producto
 ![Captura 03: Detalle Producto](./evidencias/03-detalle-producto.png)
 
-# Página Phones
+### Página Phones
 ![Captura 03b: Página Phones](./evidencias/03-pagina-phones.png)
 
-# Navbar
+### Navbar
 ![Captura 04: Navbar](./evidencias/04-navbar.png)
 
-# Footer
+### Footer
 ![Captura 05: Footer](./evidencias/05-footer.png)
 
 ---
 
-### REFLEXION DE auto-wait vs sleep()
+## REFLEXION DE auto-wait vs sleep()
 
 Después de darle muchas vueltas a este tema y pelear con la automatización, he llegado a la conclusión de que seguir usando pausas fijas como sleep() es un "parche" que a la larga destruye nuestra confianza en las pruebas. Al principio parece la salida más fácil cuando un script falla porque la página no cargó rápido, pero la realidad es que el sleep() es completamente ciego: congela la ejecución del código sin importarle si el elemento ya apareció en medio segundo, o si la red está tan lenta que los cinco segundos que le codificamos no van a alcanzar. A la larga, esto solo nos llena el proyecto de pruebas inestables (flaky tests) y nos hace desperdiciar horas de tiempo valioso de cómputo (y dinero) en nuestros pipelines de integración continua esperando por pausas innecesarias.  
 
