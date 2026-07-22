@@ -3,6 +3,7 @@
 
 ---
 
+<a id="info-estudiante"></a>
 ## 👤 Información del Estudiante
 
 | Campo | Información |
@@ -13,12 +14,14 @@
 
 ---
 
+<a id="instructor"></a>
 ## 👨‍🏫 Instructor
 
 **Ingeniero:** Ing. MA. Carmelo Estuardo Mayén Monterroso
 
 ---
 
+<a id="entorno-desarrollo"></a>
 ## 🔧 Entorno de Desarrollo
 
 | Herramienta | Versión |
@@ -30,12 +33,33 @@
 
 ---
 
+<a id="descripción-del-proyecto"></a>
 ## 📋 Descripción del Proyecto
 
 Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos). Las pruebas están divididas en dos suites principales: `clase01.spec.ts` y `clase02.spec.ts`.
 
 ---
 
+## 📚 Índice
+
+- [Información del Estudiante](#info-estudiante)
+- [Instructor](#instructor)
+- [Entorno de Desarrollo](#entorno-desarrollo)
+- [Descripción del Proyecto](#descripción-del-proyecto)
+- [Pruebas - Clase 01](#pruebas-clase-01)
+- [Resultados de las Pruebas](#resultados-pruebas)
+- [Pruebas - Clase 02](#pruebas-clase-02)
+- [Reflexión de auto-wait vs sleep()](#reflexion)
+- [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
+- [Configuración de Playwright](#configuracion-playwright)
+- [Elementos Validados](#elementos-validados)
+- [Tecnologías Utilizadas](#tecnologias-utilizadas)
+- [Notas Importantes](#notas-importantes)
+- [Fecha de Entrega](#fecha-de-entrega)
+- [Estado del Proyecto](#estado-del-proyecto)
+
+
+<a id="pruebas-clase-01"></a>
 ## ✅ Pruebas - Clase 01 11/07/2026
 
 ### Versión de Node.js
@@ -75,6 +99,7 @@ Modo Visual (Interfaz UI)
 
 ---
 
+<a id="resultados-pruebas"></a>
 ## 🎯 Resultados de las Pruebas
 
 ```
@@ -112,6 +137,8 @@ A continuación se incluyen todas las capturas registradas durante la ejecución
 
 ---
 
+<a id="pruebas-clase-02"></a>
+<a id="reflexion"></a>
 ## REFLEXION DE auto-wait vs sleep()
 
 Después de darle muchas vueltas a este tema y pelear con la automatización, he llegado a la conclusión de que seguir usando pausas fijas como sleep() es un "parche" que a la larga destruye nuestra confianza en las pruebas. Al principio parece la salida más fácil cuando un script falla porque la página no cargó rápido, pero la realidad es que el sleep() es completamente ciego: congela la ejecución del código sin importarle si el elemento ya apareció en medio segundo, o si la red está tan lenta que los cinco segundos que le codificamos no van a alcanzar. A la larga, esto solo nos llena el proyecto de pruebas inestables (flaky tests) y nos hace desperdiciar horas de tiempo valioso de cómputo (y dinero) en nuestros pipelines de integración continua esperando por pausas innecesarias.  
@@ -149,6 +176,9 @@ npx playwright show-report
 
 ## 📊 Configuración de Playwright
 
+<a id="ejecutar-pruebas"></a>
+<a id="configuracion-playwright"></a>
+
 ### URL Base
 ```
 https://www.demoblaze.com
@@ -165,6 +195,8 @@ https://www.demoblaze.com
 
 ## 🔍 Elementos Validados
 
+<a id="elementos-validados"></a>
+
 ### Elementos de la Página Principal
 | Elemento | Localizador | Estado |
 |----------|------------|--------|
@@ -177,6 +209,8 @@ https://www.demoblaze.com
 
 ## 💡 Tecnologías Utilizadas
 
+<a id="tecnologias-utilizadas"></a>
+
 - **Playwright**: Framework de automatización de pruebas
 - **TypeScript**: Lenguaje de programación tipado
 - **Node.js v24.15.0**: Runtime de JavaScript
@@ -185,6 +219,8 @@ https://www.demoblaze.com
 ---
 
 ## 📝 Notas Importantes
+
+<a id="notas-importantes"></a>
 
 - Las pruebas se ejecutan en **modo no headless** para visualización en tiempo real
 - Se capturan pantallas solo cuando hay fallos
@@ -195,11 +231,15 @@ https://www.demoblaze.com
 
 ## 📅 Fecha de Entrega
 
+<a id="fecha-de-entrega"></a>
+
 **17 de julio de 2026**
 
 ---
 
 ## ✨ Estado del Proyecto
+
+<a id="estado-del-proyecto"></a>
 
 ![Estado](https://img.shields.io/badge/Status-En%20Desarrollo-blue)
 ![Pruebas](https://img.shields.io/badge/Pruebas-4%20Pasadas-green)
