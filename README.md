@@ -92,11 +92,22 @@ Tiempo total: 6.3s
 
 A continuación se incluyen todas las capturas registradas durante la ejecución de la suite `clase02.spec.ts` (carpeta `evidencias`).
 
+# Página Inicio
 ![Captura 01: Página Inicio](./evidencias/01-pagina-inicio.png)
+
+# Página Carrito
 ![Captura 02: Carrito](./evidencias/02-pagina-carrito.png)
+
+# Detalle Producto
 ![Captura 03: Detalle Producto](./evidencias/03-detalle-producto.png)
+
+# Página Phones
 ![Captura 03b: Página Phones](./evidencias/03-pagina-phones.png)
+
+# Navbar
 ![Captura 04: Navbar](./evidencias/04-navbar.png)
+
+# Footer
 ![Captura 05: Footer](./evidencias/05-footer.png)
 
 ---
