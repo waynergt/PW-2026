@@ -60,6 +60,7 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 
 
 <a id="pruebas-clase-01"></a>
+
 ## ✅ Pruebas - Clase 01 11/07/2026
 
 ### Versión de Node.js
@@ -100,6 +101,7 @@ Modo Visual (Interfaz UI)
 ---
 
 <a id="resultados-pruebas"></a>
+
 ## 🎯 Resultados de las Pruebas
 
 ```
@@ -112,6 +114,7 @@ Total: 4 pruebas pasadas
 Tiempo total: 6.3s
 ```
 ---
+<a id="pruebas-clase-02"></a>
 
 ## ✅ Pruebas - Clase 02 18/07/2026
 
@@ -137,8 +140,9 @@ A continuación se incluyen todas las capturas registradas durante la ejecución
 
 ---
 
-<a id="pruebas-clase-02"></a>
+
 <a id="reflexion"></a>
+
 ## REFLEXION DE auto-wait vs sleep()
 
 Después de darle muchas vueltas a este tema y pelear con la automatización, he llegado a la conclusión de que seguir usando pausas fijas como sleep() es un "parche" que a la larga destruye nuestra confianza en las pruebas. Al principio parece la salida más fácil cuando un script falla porque la página no cargó rápido, pero la realidad es que el sleep() es completamente ciego: congela la ejecución del código sin importarle si el elemento ya apareció en medio segundo, o si la red está tan lenta que los cinco segundos que le codificamos no van a alcanzar. A la larga, esto solo nos llena el proyecto de pruebas inestables (flaky tests) y nos hace desperdiciar horas de tiempo valioso de cómputo (y dinero) en nuestros pipelines de integración continua esperando por pausas innecesarias.  
@@ -149,7 +153,10 @@ En resumen, me doy cuenta de que automatizar con calidad no se trata de adivinar
 
 ---
 
+<a id="ejecutar-pruebas"></a>
+
 ## 🚀 Cómo Ejecutar las Pruebas
+
 
 ### Instalación de Dependencias
 ```bash
@@ -167,6 +174,7 @@ npm playwright test tests/clase01.spec.ts
 npm playwright test tests/clase02.spec.ts
 ```
 
+
 ### Ver reporte interactivo
 ```bash
 npx playwright show-report
@@ -174,10 +182,10 @@ npx playwright show-report
 
 ---
 
+<a id="configuracion-playwright"></a>
+
 ## 📊 Configuración de Playwright
 
-<a id="ejecutar-pruebas"></a>
-<a id="configuracion-playwright"></a>
 
 ### URL Base
 ```
@@ -193,9 +201,10 @@ https://www.demoblaze.com
 
 ---
 
+<a id="elementos-validados"></a>
+
 ## 🔍 Elementos Validados
 
-<a id="elementos-validados"></a>
 
 ### Elementos de la Página Principal
 | Elemento | Localizador | Estado |
@@ -207,9 +216,11 @@ https://www.demoblaze.com
 
 ---
 
+<a id="tecnologias-utilizadas"></a>
+
 ## 💡 Tecnologías Utilizadas
 
-<a id="tecnologias-utilizadas"></a>
+
 
 - **Playwright**: Framework de automatización de pruebas
 - **TypeScript**: Lenguaje de programación tipado
@@ -218,9 +229,9 @@ https://www.demoblaze.com
 
 ---
 
-## 📝 Notas Importantes
-
 <a id="notas-importantes"></a>
+
+## 📝 Notas Importantes
 
 - Las pruebas se ejecutan en **modo no headless** para visualización en tiempo real
 - Se capturan pantallas solo cuando hay fallos
@@ -228,18 +239,16 @@ https://www.demoblaze.com
 - El timeout por defecto es de 30 segundos por prueba
 
 ---
+<a id="fecha-de-entrega"></a>
 
 ## 📅 Fecha de Entrega
-
-<a id="fecha-de-entrega"></a>
 
 **17 de julio de 2026**
 
 ---
+<a id="estado-del-proyecto"></a>
 
 ## ✨ Estado del Proyecto
-
-<a id="estado-del-proyecto"></a>
 
 ![Estado](https://img.shields.io/badge/Status-En%20Desarrollo-blue)
 ![Pruebas](https://img.shields.io/badge/Pruebas-4%20Pasadas-green)
