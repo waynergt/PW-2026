@@ -36,7 +36,7 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 
 ---
 
-## ✅ Pruebas - Clase 01
+## ✅ Pruebas - Clase 01 11/07/2026
 
 ### Versión de Node.js
 
@@ -86,6 +86,28 @@ Modo Visual (Interfaz UI)
 Total: 4 pruebas pasadas
 Tiempo total: 6.3s
 ```
+---
+
+## ✅ Pruebas - Clase 02 18/07/2026
+
+A continuación se incluyen todas las capturas registradas durante la ejecución de la suite `clase02.spec.ts` (carpeta `evidencias`).
+
+![Captura 01: Página Inicio](./evidencias/01-pagina-inicio.png)
+![Captura 02: Carrito](./evidencias/02-pagina-carrito.png)
+![Captura 03: Detalle Producto](./evidencias/03-detalle-producto.png)
+![Captura 03b: Página Phones](./evidencias/03-pagina-phones.png)
+![Captura 04: Navbar](./evidencias/04-navbar.png)
+![Captura 05: Footer](./evidencias/05-footer.png)
+
+---
+
+### REFLEXION DE auto-wait vs sleep()
+
+Después de darle muchas vueltas a este tema y pelear con la automatización, he llegado a la conclusión de que seguir usando pausas fijas como sleep() es un "parche" que a la larga destruye nuestra confianza en las pruebas. Al principio parece la salida más fácil cuando un script falla porque la página no cargó rápido, pero la realidad es que el sleep() es completamente ciego: congela la ejecución del código sin importarle si el elemento ya apareció en medio segundo, o si la red está tan lenta que los cinco segundos que le codificamos no van a alcanzar. A la larga, esto solo nos llena el proyecto de pruebas inestables (flaky tests) y nos hace desperdiciar horas de tiempo valioso de cómputo (y dinero) en nuestros pipelines de integración continua esperando por pausas innecesarias.  
+
+Por el contrario, entender y adoptar el "auto-wait" significó un cambio de mentalidad para mí. Herramientas modernas no se quedan simplemente dormidas esperando a que pase el tiempo; están activamente sondeando el sistema, verificando no solo que el elemento exista en el código, sino que sea realmente visible en la pantalla, que no se esté moviendo por una animación y que esté listo para recibir un clic. Esto hace que nuestras pruebas avancen en el milisegundo exacto en que la aplicación está lista, ni un segundo antes, ni un segundo después.  
+
+En resumen, me doy cuenta de que automatizar con calidad no se trata de adivinar cuánto va a tardar un servidor, sino de enseñarle al script a reaccionar dinámicamente al estado de la interfaz. Dejar atrás el sleep() no es solo seguir un capricho teórico o una simple "buena práctica", es la única forma real de dejar de escribir código frágil y empezar a construir una red de seguridad en la que todo el equipo de desarrollo pueda confiar ciegamente.
 
 ---
 
