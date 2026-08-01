@@ -49,6 +49,7 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 - [Pruebas - Clase 01](#pruebas-clase-01)
 - [Resultados de las Pruebas](#resultados-pruebas)
 - [Pruebas - Clase 02](#pruebas-clase-02)
+- [Clase 03](#clase-03)
 - [Reflexión de auto-wait vs sleep()](#reflexion)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
@@ -140,7 +141,6 @@ A continuación se incluyen todas las capturas registradas durante la ejecución
 
 ---
 
-
 <a id="reflexion"></a>
 
 ## REFLEXION DE auto-wait vs sleep()
@@ -150,6 +150,35 @@ Después de darle muchas vueltas a este tema y pelear con la automatización, he
 Por el contrario, entender y adoptar el "auto-wait" significó un cambio de mentalidad para mí. Herramientas modernas no se quedan simplemente dormidas esperando a que pase el tiempo; están activamente sondeando el sistema, verificando no solo que el elemento exista en el código, sino que sea realmente visible en la pantalla, que no se esté moviendo por una animación y que esté listo para recibir un clic. Esto hace que nuestras pruebas avancen en el milisegundo exacto en que la aplicación está lista, ni un segundo antes, ni un segundo después.  
 
 En resumen, me doy cuenta de que automatizar con calidad no se trata de adivinar cuánto va a tardar un servidor, sino de enseñarle al script a reaccionar dinámicamente al estado de la interfaz. Dejar atrás el sleep() no es solo seguir un capricho teórico o una simple "buena práctica", es la única forma real de dejar de escribir código frágil y empezar a construir una red de seguridad en la que todo el equipo de desarrollo pueda confiar ciegamente.
+
+---
+
+<a id="clase-03"></a>
+
+## ✅ Clase 03
+
+### Caso de Prueba TC-001: Agregar un producto al carrito en DemoBlaze
+
+- **ID:** TC-001
+- **Título:** Agregar un producto al carrito en DemoBlaze
+- **Precondición:** El usuario se encuentra en la página principal de DemoBlaze y el producto seleccionado está disponible en el catálogo.
+
+#### Pasos
+1. Ir a la página principal de DemoBlaze.
+2. Hacer clic en el nombre o imagen de un producto del catálogo (por ejemplo, Samsung Galaxy S6).
+3. Esperar a que cargue la página de detalles del producto.
+4. Hacer clic en el botón "Add to cart".
+5. Aceptar la alerta emergente de confirmación generada por el navegador.
+
+#### Datos de prueba
+- **URL Base:** https://www.demoblaze.com
+- **Producto seleccionado:** Samsung Galaxy S6
+
+#### Resultado esperado
+El sistema añade el producto a la sesión del carrito de compras, muestra una alerta con el texto "Product added." y al navegar a la sección del carrito el producto se visualiza correctamente.
+
+#### Estado
+- **Estado:** Pendiente de ejecución / Aprobado (Pass)
 
 ---
 
