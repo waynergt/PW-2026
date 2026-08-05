@@ -36,7 +36,7 @@
 <a id="descripción-del-proyecto"></a>
 ## 📋 Descripción del Proyecto
 
-Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos). Las pruebas están divididas en dos suites principales: `clase01.spec.ts` y `clase02.spec.ts`.
+Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos). Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores y operaciones de `Place Order`. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts` y `clase04.spec.ts`.
 
 ---
 
@@ -49,8 +49,10 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 - [Pruebas - Clase 01](#pruebas-clase-01)
 - [Resultados de las Pruebas](#resultados-pruebas)
 - [Pruebas - Clase 02](#pruebas-clase-02)
-- [Clase 03](#clase-03)
 - [Reflexión de auto-wait vs sleep()](#reflexion)
+- [Clase 03](#clase-03)
+- [Pruebas - Clase 04](#pruebas-clase-04)
+- [Reflexión Clase 04](#reflexion-clase-04)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -179,6 +181,81 @@ El sistema añade el producto a la sesión del carrito de compras, muestra una a
 
 #### Estado
 - **Estado:** Pendiente de ejecución / Aprobado (Pass)
+
+---
+
+<a id="pruebas-clase-04"></a>
+
+## ✅ Pruebas - Clase 04
+
+A continuación se presentan las capturas y descripciones de los tests realizados en la suite `clase04.spec.ts`.
+
+### Registro de usuario
+- Captura de **registro de un nuevo usuario** en la ventana modal de `Sign up` y la alerta de confirmación de registro.
+
+![Captura 01 - Registro de usuario](./evidencias/clase04-01-registro-usuario.png)
+
+### Login exitoso
+- Captura de **ingreso exitoso** con el usuario previamente registrado y verificación del nombre mostrado en la barra de navegación.
+
+![Captura 02 - Login exitoso](./evidencias/clase04-02-login-exitoso.png)
+
+### Carrito con producto agregado
+- Captura del **flujo completo** que incluye seleccionar un producto, agregarlo al carrito y verificarlo en la página de `Cart`.
+
+![Captura 03 - Carrito con producto](./evidencias/clase04-03-carrito-con-producto.png)
+
+### Login con credenciales incorrectas
+- Captura del intento de login con usuario y contraseña inválidos, validación del mensaje de error y la ausencia de usuario autenticado.
+
+![Captura 04 - Login credenciales incorrectas](./evidencias/clase04-04-login-credenciales-incorrectas.png)
+
+### Reto Place Order
+- Captura de la **ventana modal `Place Order`** con los campos completados utilizando `fill()` para nombre, país, ciudad y tarjeta de crédito.
+
+![Captura 05 - Formulario Place Order](./evidencias/clase04-05-reto-formulario-place-order.png)
+
+### Cerrar modal de login
+- Captura del cierre correcto del modal de login mediante el botón `Close`.
+
+![Captura 06 - Modal cerrado](./evidencias/clase04-06-reto-modal-cerrado.png)
+
+### Campo limpiado con clear()
+- Captura de la prueba donde se ingresa texto en el campo de usuario del modal de login y se limpia correctamente con `clear()`.
+
+![Captura 07 - Campo limpio](./evidencias/clase04-07-reto-campo-limpio.png)
+
+---
+
+<a id="resultados-pruebas-clase-04"></a>
+
+## 🎯 Resultados de las Pruebas - Clase 04
+
+```
+✓ Clase 04 - Registrar nuevo usuario
+✓ Clase 04 - Login exitoso con usuario registrado
+✓ Clase 04 - Agregar producto al carrito y verificar carrito
+✓ Clase 04 - Intento de login con credenciales incorrectas
+✓ Clase 04 - Completar formulario Place Order
+✓ Clase 04 - Cerrar modal de login con Close
+✓ Clase 04 - Llenar y limpiar campo con clear()
+
+Total: 7 pruebas registradas
+``` 
+
+---
+
+<a id="reflexion-clase-04"></a>
+
+## 🧠 Reflexión Clase 04
+
+De los 7 principios que vimos, el que más me llamó la atención fue el **Principio 2: las pruebas exhaustivas son imposibles**.
+
+Al principio uno piensa que "probar bien" significa probar todo, todas las combinaciones posibles. Pero haciendo el laboratorio de esta semana me di cuenta de que eso simplemente no se puede. Por ejemplo, en el test de "login con credenciales incorrectas" no probé todas las contraseñas incorrectas que existen (eso sería infinito), solo probé un caso que representa bien el error: un usuario que no existe con una contraseña cualquiera. Y con ese solo caso ya pude confirmar que el sistema se comporta como debería.
+
+Creo que este principio es importante porque me ayuda a pensar diferente a la hora de hacer pruebas: no se trata de intentar cubrir el 100% de los casos posibles, sino de elegir bien cuáles casos probar, priorizando los que tienen más riesgo o los que son más representativos. Eso también se conecta con lo que vimos del Principio 1 (las pruebas muestran defectos, no su ausencia): aunque mis 4 tests pasen, eso no significa que DemoBlaze esté libre de errores, solo significa que en esos casos específicos que probé, todo funcionó bien.
+
+Aplicándolo a mi día a día, esto me sirve para entender que como futuro profesional en QA mi trabajo no es "probar todo" (porque es imposible), sino usar el criterio para decidir qué probar primero y con qué prioridad, dependiendo del riesgo que tenga cada parte del sistema.
 
 ---
 
