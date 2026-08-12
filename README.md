@@ -53,6 +53,7 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 - [Clase 03](#clase-03)
 - [Pruebas - Clase 04](#pruebas-clase-04)
 - [Reflexión Clase 04](#reflexion-clase-04)
+- [Pruebas - Clase 05](#pruebas-clase-05)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -256,6 +257,101 @@ Al principio uno piensa que "probar bien" significa probar todo, todas las combi
 Creo que este principio es importante porque me ayuda a pensar diferente a la hora de hacer pruebas: no se trata de intentar cubrir el 100% de los casos posibles, sino de elegir bien cuáles casos probar, priorizando los que tienen más riesgo o los que son más representativos. Eso también se conecta con lo que vimos del Principio 1 (las pruebas muestran defectos, no su ausencia): aunque mis 4 tests pasen, eso no significa que DemoBlaze esté libre de errores, solo significa que en esos casos específicos que probé, todo funcionó bien.
 
 Aplicándolo a mi día a día, esto me sirve para entender que como futuro profesional en QA mi trabajo no es "probar todo" (porque es imposible), sino usar el criterio para decidir qué probar primero y con qué prioridad, dependiendo del riesgo que tenga cada parte del sistema.
+
+---
+
+<a id="pruebas-clase-05"></a>
+
+## ✅ Pruebas - Clase 05 25/07/2026
+
+La clase 05 se enfocó en validar la lógica de autenticación en Sauce Demo, así como la calidad de los asserts de Playwright con `toHaveURL`, `toBeVisible`, `toHaveCount`, `toContainText`, `toBeFocused`, `toHaveCSS` y `soft assertions`. Además, se practicaron reglas de decisión sobre el flujo de compra y la validación del catálogo.
+
+### Descripción breve de cada test
+
+#### 1. CE válida: login con credenciales correctas
+Valida que un usuario registrado pueda autenticarse correctamente y que la aplicación redirige al inventario.
+
+![Captura 01 - Login válido](./evidencias/clase05-01-login-credenciales-correctas.png)
+
+#### 2. CE inválida: usuario no existe
+Comprueba que si se ingresa un usuario inexistente, aparece un error y no se navega al inventario.
+
+![Captura 02 - Usuario no existe](./evidencias/clase05-02-login-usuario-no-existe.png)
+
+#### 3. CE inválida: usuario bloqueado
+Verifica que una cuenta bloqueada muestre el mensaje de error apropiado y se mantenga en la pantalla de login.
+
+![Captura 03 - Usuario bloqueado](./evidencias/clase05-03-login-usuario-bloqueado.png)
+
+#### 4. Valor en frontera: campos vacíos
+Valida el caso límite de enviar el formulario sin completar ningún campo, verificando que se muestre el mensaje de "Username is required".
+
+![Captura 04 - Campos vacíos](./evidencias/clase05-04-campos-vacios-frontera.png)
+
+#### 5. Verificar que el inventario tiene exactamente 6 productos
+Confirma la cantidad exacta de elementos visibles en la página de productos.
+
+![Captura 05 - Inventario con 6 productos](./evidencias/clase05-05-inventario-seis-productos.png)
+
+#### 6. Verificar precio del primer producto con regex
+Comprueba que el formato del precio sea válido, como por ejemplo `$29.99`, usando expresiones regulares.
+
+![Captura 06 - Precio con regex](./evidencias/clase05-06-precio-primer-producto-regex.png)
+
+#### 7. Verificar atributos y estados del inventario
+Valida que el botón de cada producto esté habilitado, muestre el texto correcto y cambie a "Remove" después de hacer clic.
+
+![Captura 07 - Atributos y estados](./evidencias/clase05-07-atributos-estados-inventario.png)
+
+#### 8. Verificar múltiples propiedades del primer producto con soft assertions
+Aplica assertions suaves para revisar que el nombre, descripción, precio, imagen y botón del primer producto estén visibles y activos sin interrumpir la ejecución.
+
+![Captura 08 - Soft assertions](./evidencias/clase05-08-soft-assertions-primer-producto.png)
+
+#### 9. Tabla de decisión - Regla 1: logueado con items → puede pagar
+Verifica que un usuario autenticado con producto en el carrito pueda avanzar al checkout.
+
+![Captura 09 - Regla 1](./evidencias/clase05-09-tabla-decision-regla1-checkout.png)
+
+#### 10. Tabla de decisión - Regla 2: logueado sin items → carrito vacío
+Comprueba que un usuario válido sin productos en el carrito no vea elementos en el carrito y mantenga el flujo vacío.
+
+![Captura 10 - Regla 2](./evidencias/clase05-10-tabla-decision-regla2-carrito-vacio.png)
+
+#### 11. Reto 1 - Ordenar catálogo por precio con `toHaveValue()`
+Ejecuta la ordenación por precio de menor a mayor y valida que el menú select quedó en la opción correcta (`lohi`).
+
+![Captura 11 - Ordenar por precio](./evidencias/clase05-11-reto-ordenar-por-precio.png)
+
+#### 12. Reto 2 - Verificar foco del campo usuario con `toBeFocused()`
+Confirma que al hacer clic en el campo de usuario, el foco realmente se coloca sobre ese input.
+
+![Captura 12 - Foco en campo usuario](./evidencias/clase05-12-reto-campo-focus.png)
+
+#### 13. Reto 3 - Verificar estilo del botón Add to cart con `toHaveCSS()`
+Valida propiedades visuales/estilo del botón, como el cursor, asegurando que el estado visual sea el esperado.
+
+![Captura 13 - CSS del botón](./evidencias/clase05-13-reto-boton-css-cursor.png)
+
+### Resultado general de la clase 05
+
+```
+✓ Login con credenciales válidas
+✓ Login con usuario inexistente
+✓ Login con usuario bloqueado
+✓ Validación de campos vacíos
+✓ Inventario con 6 productos
+✓ Validación de precio con regex
+✓ Atributos y estados del inventario
+✓ Soft assertions del primer producto
+✓ Regla 1: usuario con items puede pagar
+✓ Regla 2: usuario sin items tiene carrito vacío
+✓ Ordenación por precio
+✓ Foco sobre el campo usuario
+✓ Estilo del botón Add to cart
+
+Total: 13 pruebas ejecutadas y validadas en Sauce Demo
+```
 
 ---
 
