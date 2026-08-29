@@ -36,7 +36,15 @@
 <a id="descripción-del-proyecto"></a>
 ## 📋 Descripción del Proyecto
 
-Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos). Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores y operaciones de `Place Order`. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts` y `clase04.spec.ts`.
+Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts` y `clase06.spec.ts`.
+
+Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **Page Object Model (POM)**, separando la lógica de interacción por pantalla. Dentro de ella se implementaron los siguientes archivos:
+
+- `pages/LoginPage.ts` para el flujo de autenticación.
+- `pages/InventoryPage.ts` para validar el catálogo, el carrito y la ordenación.
+- `pages/CartPage.ts` para verificar el contenido del carrito.
+- `pages/CheckoutPage.ts` para completar la compra y confirmar el pedido.
+- `pages/MenuPage.ts` para manejar el menú lateral y el logout.
 
 ---
 
@@ -54,6 +62,7 @@ Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playw
 - [Pruebas - Clase 04](#pruebas-clase-04)
 - [Reflexión Clase 04](#reflexion-clase-04)
 - [Pruebas - Clase 05](#pruebas-clase-05)
+- [Pruebas - Clase 06](#pruebas-clase-06)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -383,6 +392,79 @@ Total: 13 pruebas ejecutadas y validadas en Sauce Demo
 
 ---
 
+<a id="pruebas-clase-06"></a>
+
+## ✅ Pruebas - Clase 06 28/08/2026
+
+La clase 06 se enfocó en aplicar el patrón **Page Object Model (POM)** en Sauce Demo para mejorar la mantenibilidad y reutilización del código de automatización. Para esto se creó la carpeta `pages/` con los nuevos archivos que encapsulan la lógica de cada pantalla del flujo de login, inventario, carrito y checkout.
+
+### Nuevos Page Objects creados
+
+- `pages/LoginPage.ts` — manejo del login, validación de errores y navegación.
+- `pages/InventoryPage.ts` — acceso al inventario, conteo de productos, ordenamiento y agregar/remover elementos.
+- `pages/CartPage.ts` — validación del contenido del carrito y avance al checkout.
+- `pages/CheckoutPage.ts` — completar información del cliente y confirmar la orden.
+- `pages/MenuPage.ts` — abrir el menú lateral y realizar logout.
+
+### Descripción breve de cada test
+
+#### 1. Login exitoso con POM
+Valida que el usuario `standard_user` pueda iniciar sesión correctamente y llegar al inventario usando el modelo orientado a páginas.
+
+![Captura 01 - Login exitoso](./evidencias/clase06-login-exitoso.png)
+
+#### 2. Login fallido con POM
+Comprueba que un usuario inválido muestre el error de credenciales incorrectas y no permita avanzar.
+
+![Captura 02 - Login fallido](./evidencias/clase06-login-fallido.png)
+
+#### 3. Flujo completo: login → agregar 2 productos → verificar carrito
+Revisa el recorrido completo desde el login hasta la validación de dos productos agregados al carrito.
+
+![Captura 03 - Flujo completo carrito](./evidencias/clase06-flujo-completo-carrito.png)
+
+#### 4. Verificar que el inventario tiene 6 productos
+Confirma la cantidad exacta de elementos en la página de productos.
+
+![Captura 04 - Inventario con 6 productos](./evidencias/clase06-inventario-6-productos.png)
+
+#### 5. Ordenar productos de mayor a menor precio
+Verifica la lógica de orden en el catálogo según el valor del precio.
+
+![Captura 05 - Orden mayor a menor](./evidencias/clase06-orden-mayor-a-menor.png)
+
+#### 6. Reto 1: Flujo de compra completo
+Ejecuta todo el recorrido de compra, incluyendo checkout y confirmación final del pedido.
+
+![Captura 06 - Compra completa](./evidencias/clase06-reto1-compra-completa.png)
+
+#### 7. Reto 2: Logout desde el menú
+Valida el cierre de sesión desde el panel del menú lateral.
+
+![Captura 07 - Logout exitoso](./evidencias/clase06-reto2-logout-exitoso.png)
+
+#### 8. Reto 3: Remover producto y verificar badge
+Confirma que al quitar un producto del inventario, el contador del carrito desaparece correctamente.
+
+![Captura 08 - Producto removido](./evidencias/clase06-reto3-producto-removido.png)
+
+### Resultado general de la clase 06
+
+```
+✓ Login exitoso con POM
+✓ Login fallido con POM
+✓ Flujo completo: login → agregar 2 productos → verificar carrito
+✓ Inventario con 6 productos
+✓ Ordenar productos de mayor a menor precio
+✓ Reto 1: flujo de compra completo
+✓ Reto 2: logout desde el menú
+✓ Reto 3: remover producto y verificar badge
+
+Total: 8 pruebas ejecutadas y validadas con Page Object Model
+```
+
+---
+
 <a id="ejecutar-pruebas"></a>
 
 ## 🚀 Cómo Ejecutar las Pruebas
@@ -481,7 +563,7 @@ https://www.demoblaze.com
 ## ✨ Estado del Proyecto
 
 ![Estado](https://img.shields.io/badge/Status-En%20Desarrollo-blue)
-![Pruebas](https://img.shields.io/badge/Pruebas-4%20Pasadas-green)
+![Pruebas](https://img.shields.io/badge/Pruebas-8%20Ejecutadas-green)
 ![Node](https://img.shields.io/badge/Node-v24.15.0-green)
 ![Playwright](https://img.shields.io/badge/Playwright-Latest-blue)
 
