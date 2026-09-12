@@ -81,4 +81,69 @@ test.describe('Clase 07 - Evidencias de pruebas', () => {
         console.log('Estado antes y después documentados correctamente');
     });
 
+// TEST RETOS
+
+// Reto 1 — test.step()
+    test('Reto 1: Flujo estructurado en pasos nombrados', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        const inventoryPage = new InventoryPage(page);
+
+        await test.step('Navegar a la aplicación', async () => {
+            await loginPage.navigate();
+           
+            await page.screenshot({ path: './evidencias/clase07/r01-01-navegacion.png' });
+        });
+
+        await test.step('Realizar login con credenciales válidas', async () => {
+            await loginPage.login('standard_user', 'secret_sauce');
+            
+            await page.screenshot({ path: './evidencias/clase07/r01-02-post-login.png' });
+        });
+
+        await test.step('Verificar acceso correcto al inventario', async () => {
+            await inventoryPage.expectToBeOnInventoryPage();
+            await expect(page).toHaveURL(/inventory/);
+           
+            await page.screenshot({ path: './evidencias/clase07/r01-03-inventario-confirmado.png', fullPage: true });
+        });
+    });
+
+    // Reto 2 — testInfo.attach()
+    test('Reto 2: Capturar datos y adjuntarlos al reporte', async ({ page }, testInfo) => {
+        const loginPage = new LoginPage(page);
+        await loginPage.navigate();
+        await loginPage.login('standard_user', 'secret_sauce');
+
+        
+        await page.screenshot({ path: './evidencias/clase07/r02-estado-extraccion-datos.png', fullPage: true });
+
+      
+        const cantidadProductos = await page.locator('.inventory_item').count();
+        const urlActual = page.url();
+        const fechaHora = new Date().toISOString();
+
+        const datosCapturados = `
+        REPORTE DE DATOS DE PRUEBA
+        ==========================
+        Fecha de ejecución: ${fechaHora}
+        URL validada: ${urlActual}
+        Cantidad de productos renderizados: ${cantidadProductos}
+        `;
+
+        
+        await testInfo.attach('datos-capturados.txt', {
+            body: datosCapturados,
+            contentType: 'text/plain'
+        });
+    });
+
+    // Reto 3 — toHaveScreenshot()
+    test('Reto 3: Comparación visual de la interfaz de login', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        await loginPage.navigate();
+
+        const loginContainer = page.locator('.login-box');
+        await expect(loginContainer).toHaveScreenshot('login-box-baseline.png');
+    });
+
 });

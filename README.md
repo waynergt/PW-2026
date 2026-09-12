@@ -36,7 +36,7 @@
 <a id="descripción-del-proyecto"></a>
 ## 📋 Descripción del Proyecto
 
-Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts` y `clase06.spec.ts`.
+Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts`, `clase06.spec.ts` y `clase07.spec.ts`.
 
 Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **Page Object Model (POM)**, separando la lógica de interacción por pantalla. Dentro de ella se implementaron los siguientes archivos:
 
@@ -63,6 +63,7 @@ Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **P
 - [Reflexión Clase 04](#reflexion-clase-04)
 - [Pruebas - Clase 05](#pruebas-clase-05)
 - [Pruebas - Clase 06](#pruebas-clase-06)
+- [Pruebas - Clase 07](#pruebas-clase-07)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -462,6 +463,77 @@ Confirma que al quitar un producto del inventario, el contador del carrito desap
 
 Total: 8 pruebas ejecutadas y validadas con Page Object Model
 ```
+
+---
+
+<a id="pruebas-clase-07"></a>
+
+## ✅ Pruebas - Clase 07
+
+La clase 07 se enfocó en documentar las pruebas con evidencias visuales, estructurar los flujos con `test.step()`, adjuntar información dinámica al reporte mediante `testInfo.attach()` y realizar comparación visual con `toHaveScreenshot()`. Las pruebas se ejecutaron sobre Sauce Demo utilizando los Page Objects creados en la clase 06.
+
+### Evidencias de las pruebas
+
+#### 1. Login exitoso - evidencia completa
+Documenta el estado de la aplicación antes de autenticarse y el inventario después de iniciar sesión con `standard_user`.
+
+![Clase 07 - Antes del login](./evidencias/clase07/t01-antes-login.png)
+![Clase 07 - Después del login](./evidencias/clase07/t01-despues-login.png)
+
+#### 2. Flujo de compra completo
+Registra el inventario inicial, el producto agregado y el carrito con un producto validado.
+
+![Clase 07 - Inventario](./evidencias/clase07/t02-inventario.png)
+![Clase 07 - Producto agregado](./evidencias/clase07/t02-producto-agregado.png)
+![Clase 07 - Carrito](./evidencias/clase07/t02-carrito.png)
+
+#### 3. Defecto esperado: usuario bloqueado
+Captura únicamente el mensaje de error que aparece al intentar iniciar sesión con `locked_out_user`.
+
+![Clase 07 - Error de usuario bloqueado](./evidencias/clase07/t03-error-usuario-bloqueado.png)
+
+#### 4. Comparación de estados antes y después de una acción
+Muestra el carrito sin productos antes de la acción y el badge con valor `1` después de agregar el primer producto.
+
+![Clase 07 - Estado antes](./evidencias/clase07/t04-estado-antes.png)
+![Clase 07 - Estado después](./evidencias/clase07/t04-estado-despues.png)
+
+### Retos de la clase 07
+
+#### Reto 1: Flujo estructurado con `test.step()`
+Divide el flujo en navegación, login y verificación del inventario, dejando una evidencia para cada paso.
+
+![Clase 07 - Navegación](./evidencias/clase07/r01-01-navegacion.png)
+![Clase 07 - Post login](./evidencias/clase07/r01-02-post-login.png)
+![Clase 07 - Inventario confirmado](./evidencias/clase07/r01-03-inventario-confirmado.png)
+
+#### Reto 2: Datos adjuntos al reporte con `testInfo.attach()`
+Captura el estado del inventario desde el cual se extraen la URL, la fecha de ejecución y la cantidad de productos renderizados. Además, adjunta el archivo `datos-capturados.txt` al reporte de Playwright.
+
+![Clase 07 - Estado para extracción de datos](./evidencias/clase07/r02-estado-extraccion-datos.png)
+
+#### Reto 3: Comparación visual con `toHaveScreenshot()`
+Compara visualmente el contenedor de login con el baseline generado por Playwright.
+
+![Clase 07 - Baseline visual del login](./tests/clase07.spec.ts-snapshots/login-box-baseline-chromium-darwin.png)
+
+### Resultado general de la clase 07
+
+```
+✓ Login exitoso con evidencia antes y después
+✓ Flujo completo: login, agregar producto y verificar carrito
+✓ Captura del error de usuario bloqueado
+✓ Comparación de estados antes y después de agregar un producto
+✓ Flujo estructurado con test.step()
+✓ Captura de datos y adjunto al reporte con testInfo.attach()
+✓ Comparación visual del login con toHaveScreenshot()
+
+Total: 7 pruebas documentadas en la suite de Clase 07
+```
+
+### Reporte de defecto
+
+El reporte [DR-001.md](./reportes/DR-001.md) documenta un defecto de severidad y prioridad media: después de iniciar sesión y agregar productos, el badge del carrito muestra `1` cuando se esperaba `2`. La evidencia del fallo quedó registrada en el reporte HTML de Playwright mediante la aserción `toHaveText`.
 
 ---
 
