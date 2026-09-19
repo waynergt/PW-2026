@@ -36,7 +36,7 @@
 <a id="descripción-del-proyecto"></a>
 ## 📋 Descripción del Proyecto
 
-Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts`, `clase06.spec.ts` y `clase07.spec.ts`.
+Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts`, `clase06.spec.ts`, `clase07.spec.ts` y `clase08.spec.ts`.
 
 Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **Page Object Model (POM)**, separando la lógica de interacción por pantalla. Dentro de ella se implementaron los siguientes archivos:
 
@@ -64,6 +64,8 @@ Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **P
 - [Pruebas - Clase 05](#pruebas-clase-05)
 - [Pruebas - Clase 06](#pruebas-clase-06)
 - [Pruebas - Clase 07](#pruebas-clase-07)
+- [Pruebas - Clase 08](#pruebas-clase-08)
+- [Plan SQA mínimo](#plan-sqa-minimo)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -534,6 +536,49 @@ Total: 7 pruebas documentadas en la suite de Clase 07
 ### Reporte de defecto
 
 El reporte [DR-001.md](./reportes/DR-001.md) documenta un defecto de severidad y prioridad media: después de iniciar sesión y agregar productos, el badge del carrito muestra `1` cuando se esperaba `2`. La evidencia del fallo quedó registrada en el reporte HTML de Playwright mediante la aserción `toHaveText`.
+
+---
+
+<a id="pruebas-clase-08"></a>
+
+## ✅ Pruebas - Clase 08
+
+La clase 08 se enfocó en el uso de hooks de Playwright, ejecución paralela y serial, manejo de una página compartida, pruebas con distintos tipos de usuario y omisión condicional con `test.skip()`. La suite se encuentra en `tests/clase08.spec.ts`.
+
+### Organización de la suite
+
+- `test.beforeEach()` autentica al usuario estándar antes de las pruebas del inventario.
+- `test.afterEach()` captura una pantalla de diagnóstico cuando una prueba falla.
+- Las suites independientes se ejecutan en paralelo para reducir el tiempo total.
+- La suite serial comparte una página para comprobar que la sesión y el carrito se conservan entre pasos.
+- `test.slow()` permite validar el comportamiento de `performance_glitch_user` con un timeout ampliado.
+- `test.skip()` omite dinámicamente la prueba indicada durante el fin de semana.
+
+### Validaciones realizadas
+
+1. El inventario muestra exactamente 6 productos.
+2. Todos los productos tienen precio visible con formato válido.
+3. Todos los productos tienen imagen visible.
+4. El menú de hamburguesa muestra `All Items`, `About`, `Logout` y `Reset App State`.
+5. El logout devuelve a la pantalla de login.
+6. El usuario estándar puede avanzar al checkout con un producto.
+7. El usuario de rendimiento degradado puede iniciar sesión y llegar al inventario.
+8. La página compartida conserva la sesión y el carrito entre pruebas seriales.
+9. La prueba dinámica se omite cuando corresponde al fin de semana.
+
+### Carpeta `helpers`
+
+La carpeta `helpers/` centraliza funciones reutilizables para evitar duplicación en las pruebas. El archivo [helpers/auth.ts](./helpers/auth.ts) contiene la función `loginAs()`, que navega a Sauce Demo, completa las credenciales y ejecuta el login para los distintos usuarios de prueba.
+
+### Evidencia y plan SQA
+
+La evidencia convertida a PNG se encuentra en [evidencias/clase08/IMG_4558.png](./evidencias/clase08/IMG_4558.png). El documento [documentos/sqa-plan-saucedemo.md](./documentos/sqa-plan-saucedemo.md) reúne el objetivo, alcance, estrategia, casos cubiertos y resultado esperado de la suite.
+
+<a id="plan-sqa-minimo"></a>
+
+## 📋 Plan SQA mínimo
+
+El [SQA PLAN MÍNIMO](./documentos/sqa-plan-saucedemo.md) documenta la estrategia básica de calidad para Sauce Demo y complementa las pruebas automatizadas de Clase 08.
 
 ---
 
