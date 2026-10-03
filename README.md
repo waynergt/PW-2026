@@ -36,7 +36,7 @@
 <a id="descripción-del-proyecto"></a>
 ## 📋 Descripción del Proyecto
 
-Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts`, `clase06.spec.ts`, `clase07.spec.ts` y `clase08.spec.ts`.
+Este proyecto implementa un conjunto de pruebas automatizadas utilizando **Playwright** para validar la funcionalidad de la aplicación web **DemoBlaze** (Tienda de Productos) y **Sauce Demo**. Actualmente incluye varios flujos de prueba que abarcan desde la carga inicial del sitio y navegación, hasta el registro de usuarios, login, agregado de productos al carrito, validaciones de errores, orden de productos y operaciones de checkout. Las suites principales cubren `clase01.spec.ts`, `clase02.spec.ts`, `clase04.spec.ts`, `clase05.spec.ts`, `clase06.spec.ts`, `clase07.spec.ts`, `clase08.spec.ts` y `clase09.spec.ts`.
 
 Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **Page Object Model (POM)**, separando la lógica de interacción por pantalla. Dentro de ella se implementaron los siguientes archivos:
 
@@ -65,7 +65,7 @@ Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **P
 - [Pruebas - Clase 06](#pruebas-clase-06)
 - [Pruebas - Clase 07](#pruebas-clase-07)
 - [Pruebas - Clase 08](#pruebas-clase-08)
-- [Plan SQA mínimo](#plan-sqa-minimo)
+- [Pruebas - Clase 09](#pruebas-clase-09)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -579,6 +579,80 @@ La evidencia convertida a PNG se encuentra en [evidencias/clase08/IMG_4558.png](
 ## 📋 Plan SQA mínimo
 
 El [SQA PLAN MÍNIMO](./documentos/sqa-plan-saucedemo.md) documenta la estrategia básica de calidad para Sauce Demo y complementa las pruebas automatizadas de Clase 08.
+
+<a id="pruebas-clase-09"></a>
+
+## ✅ Pruebas - Clase 09
+
+La clase 09 se enfocó en **fixtures**, reutilización de datos de prueba, parametrización de pruebas y validación del login en distintos tamaños de pantalla. La suite se encuentra en [tests/clase09.spec.ts](./tests/clase09.spec.ts) y utiliza Page Objects existentes para las pantallas de login, inventario y carrito.
+
+### Temas y pruebas realizadas
+
+#### 1. Fixtures de aplicación
+Se validó el uso de fixtures para preparar pantallas y estados de prueba:
+
+- `inventoryPage`: iniciar sesión con `standard_user` y verificar que el inventario tenga 6 productos.
+- `cartPage`: agregar un producto al carrito y confirmar que haya exactamente 1.
+- `loginPage`: reutilizar el Page Object y completar el login desde el test.
+
+#### 2. Tests parametrizados de login
+Un arreglo de datos genera un caso para cada escenario, reutilizando la misma estructura de prueba:
+
+- Usuario estándar: inicia sesión y llega al inventario.
+- Usuario bloqueado: no puede iniciar sesión y se muestra el mensaje de error.
+- Campos vacíos: se muestra el mensaje de error correspondiente.
+
+#### 3. Agregar productos al carrito con parametrización
+Se reutiliza el mismo flujo para agregar y verificar estos tres productos:
+
+- Sauce Labs Backpack
+- Sauce Labs Bike Light
+- Sauce Labs Bolt T-Shirt
+
+#### 4. Fixtures avanzados
+- **Fixture con teardown y cronómetro:** mide la duración del test después de que termina su ejecución.
+- **Fixture de alcance `worker`:** comparte un contador entre las pruebas del mismo worker y comprueba su valor.
+- **Viewports parametrizados:** valida el login en móvil (375 × 667) y escritorio (1280 × 800).
+
+### Resultado general de la clase 09
+
+```text
+✓ 3 pruebas con fixtures de login, inventario y carrito
+✓ 3 escenarios parametrizados de login
+✓ 3 pruebas parametrizadas para agregar productos al carrito
+✓ 1 prueba de fixture con teardown y cronómetro
+✓ 2 pruebas de fixture con alcance worker
+✓ 2 pruebas de login responsivo: móvil y escritorio
+
+Total: 14 pruebas aprobadas en Sauce Demo
+```
+
+Ejecución de la suite:
+
+```bash
+npx playwright test tests/clase09.spec.ts --reporter=list
+```
+
+<a id="reflexion-clase-09"></a>
+
+### Reflexión y discusión - Clase 09
+
+#### 1. ¿Cuántas líneas de código se ahorran al usar un loop de parametrización?
+
+**Respuesta:** Se reduce considerablemente el código repetitivo. Como estimación, se puede ahorrar entre un 60 % y un 70 % frente a escribir un bloque de prueba independiente para cada usuario o producto. El loop reutiliza la misma lógica y permite ampliar los escenarios agregando datos al arreglo correspondiente.
+
+#### 2. ¿Qué ocurre si se agrega un cuarto usuario a `usuariosDeLogin`?
+
+**Respuesta:** No es necesario modificar la estructura de la prueba. Playwright genera un caso adicional al recorrer el arreglo y ejecuta las mismas validaciones con los datos del nuevo usuario.
+
+#### 3. ¿Cómo se podrían leer los datos de prueba desde un archivo CSV externo?
+
+**Respuesta:** Se puede leer el archivo antes de registrar las pruebas usando el módulo nativo `fs` de Node.js y una librería de análisis como `csv-parse` o `papaparse`. El flujo sería:
+
+1. Leer el contenido del archivo CSV.
+2. Convertir sus filas en un arreglo de objetos de TypeScript, como `usuariosDeLogin` o `productosAVerificar`.
+3. Recorrer el arreglo para generar las pruebas parametrizadas.
+
 
 ---
 
