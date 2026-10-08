@@ -3,18 +3,21 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   timeout: 30000,
+  workers: 1, // Evita que se abran demasiadas ventanas al mismo tiempo
+  reporter: [['list'], ['html', { open: 'never' }]],
   use: {
+    // Se conserva el baseURL de DemoBlaze: las Clases 1-4 lo necesitan
     baseURL: 'https://www.demoblaze.com',
-    headless: true,
+    headless: false,
     screenshot: 'on',
     video: 'on',
     trace: 'on',
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-  ],
-  reporter: [
-    ['list'],
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'mobile-chrome', use: { ...devices['Pixel 5'] } },
+    { name: 'mobile-safari', use: { ...devices['iPhone 12'] } },
   ],
 });

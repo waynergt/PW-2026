@@ -66,6 +66,7 @@ Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **P
 - [Pruebas - Clase 07](#pruebas-clase-07)
 - [Pruebas - Clase 08](#pruebas-clase-08)
 - [Pruebas - Clase 09](#pruebas-clase-09)
+- [Pruebas y tarea - Clase 10](#pruebas-clase-10)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -656,6 +657,81 @@ npx playwright test tests/clase09.spec.ts --reporter=list
 
 ---
 
+<a id="pruebas-clase-10"></a>
+
+## ✅ Pruebas y tarea - Clase 10
+
+En la clase 10 se organizaron las pruebas de **Sauce Demo** en suites smoke y regression, y se resolvieron retos sobre etiquetas, aserciones suaves y el motor del navegador. Se reutiliza la función `loginAs()` de `helpers/auth.ts`. Los tests se encuentran en:
+
+- [tests/clase10-smoke.spec.ts](./tests/clase10-smoke.spec.ts)
+- [tests/clase10-regression.spec.ts](./tests/clase10-regression.spec.ts)
+- [tests/tarea10.spec.ts](./tests/tarea10.spec.ts)
+
+### Suite smoke
+
+La suite smoke contiene cinco verificaciones rápidas de los flujos esenciales:
+
+1. La página de login carga, muestra el título `Swag Labs` y el botón de login.
+2. El usuario estándar puede iniciar sesión y llegar al inventario.
+3. El inventario muestra exactamente seis productos.
+4. Se puede navegar al carrito.
+5. El checkout comienza después de agregar un producto.
+
+Los casos llevan la etiqueta `@smoke`.
+
+### Suite regression
+
+La suite regression contiene cinco verificaciones de funcionalidades del inventario:
+
+1. Ordenar los productos de A a Z.
+2. Ordenar los productos de Z a A.
+3. Ordenar los precios de menor a mayor.
+4. Comprobar que el botón cambie entre `Add to cart` y `Remove` al agregar o quitar un producto.
+5. Abrir el detalle del primer producto, validar su nombre y regresar al inventario.
+
+Los casos llevan la etiqueta `@regression`.
+
+### Retos de la tarea 10
+
+1. **Etiquetas múltiples:** valida el título `Swag Labs` y el subtítulo `Products`. El caso lleva las etiquetas `@regression` y `@ui`, por lo que puede excluirse con `--grep-invert "@ui"`.
+2. **Aserciones suaves (`expect.soft()`):** comprueba el nombre, el precio y el botón del primer producto, permitiendo que se registren varias fallas antes de terminar el caso.
+3. **Fixture `browserName`:** consulta el motor del proyecto Playwright e incluye una validación del logo para Firefox, Chromium y WebKit.
+
+### Comandos utilizados
+
+Ejecutar individualmente cada suite:
+
+```bash
+npx playwright test tests/clase10-smoke.spec.ts --reporter=list
+npx playwright test tests/clase10-regression.spec.ts --reporter=list
+npx playwright test tests/tarea10.spec.ts --reporter=list
+```
+
+Ejecutar los casos por etiqueta:
+
+```bash
+npx playwright test tests/clase10-smoke.spec.ts --grep "@smoke"
+npx playwright test tests/clase10-regression.spec.ts --grep "@regression"
+npx playwright test tests/tarea10.spec.ts --grep "@regression"
+npx playwright test tests/tarea10.spec.ts --grep-invert "@ui"
+```
+
+Ejecutar las tres suites de la clase:
+
+```bash
+npx playwright test tests/clase10-smoke.spec.ts tests/clase10-regression.spec.ts tests/tarea10.spec.ts --reporter=list
+```
+
+Las suites tienen **13 casos definidos** en total: 5 smoke, 5 regression y 3 retos. Playwright los ejecuta en los proyectos configurados en `playwright.config.ts`.
+
+### Evidencia visual
+
+Se incorporó la captura del resultado multi-browser de la clase 10, ejecutado en Chromium, Firefox, WebKit y mobile Chrome, validando la tarea de etiquetas, aserciones suaves y adaptaciones por motor del navegador.
+
+![Captura multi-browser - Clase 10](./evidencias/screenshot-multi-browser/image.png)
+
+---
+
 <a id="ejecutar-pruebas"></a>
 
 ## 🚀 Cómo Ejecutar las Pruebas
@@ -668,13 +744,16 @@ npm install
 
 ### Ejecutar todas las pruebas
 ```bash
-npm playwright test
+npx playwright test
 ```
 
 ### Ejecutar suite específica
 ```bash
-npm playwright test tests/clase01.spec.ts
-npm playwright test tests/clase02.spec.ts
+npx playwright test tests/clase01.spec.ts
+npx playwright test tests/clase02.spec.ts
+npx playwright test tests/clase10-smoke.spec.ts
+npx playwright test tests/clase10-regression.spec.ts
+npx playwright test tests/tarea10.spec.ts
 ```
 
 
