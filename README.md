@@ -67,6 +67,7 @@ Además, en la clase 06 se creó la carpeta `pages/` para aplicar el patrón **P
 - [Pruebas - Clase 08](#pruebas-clase-08)
 - [Pruebas - Clase 09](#pruebas-clase-09)
 - [Pruebas y tarea - Clase 10](#pruebas-clase-10)
+- [Pruebas y tarea - Clase 11](#pruebas-clase-11)
 - [Cómo Ejecutar las Pruebas](#ejecutar-pruebas)
 - [Configuración de Playwright](#configuracion-playwright)
 - [Elementos Validados](#elementos-validados)
@@ -732,6 +733,62 @@ Se incorporó la captura del resultado multi-browser de la clase 10, ejecutado e
 
 ---
 
+<a id="pruebas-clase-11"></a>
+
+## ✅ Pruebas y tarea - Clase 11 10/10/2026
+
+**Tema:** Gestión de bugs — ciclo de vida del defecto, severidad y prioridad, reporte HTML, anotaciones y GitHub Issues.
+**Aplicación:** https://practice.expandtesting.com
+
+Archivos de la clase:
+
+- [tests/clase11.spec.ts](./tests/clase11.spec.ts) — 9 tests del laboratorio.
+- [tests/tarea11.spec.ts](./tests/tarea11.spec.ts) — 3 tests reto.
+- [reportes/bug-report-clase11.md](./reportes/bug-report-clase11.md) — reporte del defecto BR-CLASE11-001 (imágenes rotas).
+- [reportes/bug-report-tarea11-typos.md](./reportes/bug-report-tarea11-typos.md) — reporte del defecto intermitente de `/typos`.
+
+### Issues registrados
+
+- **Issue #1 – Imágenes rotas (BR-CLASE11-001):** https://github.com/waynergt/PW-2026/issues/1
+- **Issue #2 – Error de texto intermitente en /typos:** https://github.com/waynergt/PW-2026/issues/2
+
+### Tests del laboratorio (`clase11.spec.ts`)
+
+1. Página principal carga correctamente (`@smoke`).
+2. Login con credenciales válidas.
+3. Login con credenciales inválidas.
+4. Elementos dinámicos: el checkbox desaparece y vuelve.
+5. Manejo de alertas (`alert`).
+6. Manejo de `confirm`.
+7. Tabla: ordenar por Last Name ascendente y descendente.
+8. Adjuntar evidencia al reporte HTML con `testInfo.attach()`.
+9. Imágenes rotas (`@bug`): defecto conocido documentado con `test.fail()` y una anotación `bug`.
+
+Las capturas se guardan desde un único `test.afterEach` en `evidencias/clase11/`, con el nombre del test. Como el `afterEach` corre aunque el test falle, también queda la captura del defecto.
+
+### Tests reto (`tarea11.spec.ts`)
+
+1. **Reto 1 – Medir un defecto intermitente:** recarga `/typos` 12 veces, cuenta cuántas veces aparece `won,t` en lugar de `won't` y lo registra con una anotación `frecuencia` y un adjunto `frecuencia-typos`.
+2. **Reto 2 – `test.fixme` con anotación de issue:** deja escrito el test que exige el texto sin errores, sin ejecutarlo mientras el defecto siga abierto, enlazado con `{ annotation: { type: 'issue' } }` al Issue #2.
+3. **Reto 3 – Borrador de reporte desde un `afterEach`:** si el test tiene errores, adjunta `borrador-bug-report.md` con el título, el ambiente, la URL y el resultado obtenido. Se demuestra con el test de `/broken-images` (marcado con `test.fail()`).
+
+### Comandos
+
+```bash
+npx playwright test tests/clase11.spec.ts --project=firefox   # 9 passed
+npx playwright test tests/tarea11.spec.ts --project=firefox   # 2 passed, 1 skipped
+npx playwright test tests/clase11.spec.ts -g "rotas" --project=firefox   # ver el defecto (comentando test.fail)
+npx playwright show-report
+```
+
+### Reflexión y discusión - Clase 11
+
+1. **Severidad y prioridad de las imágenes rotas:** severidad **Baja**, porque es un problema visual que no bloquea ningún flujo; prioridad **P3**, porque se nota pero el producto puede salir así y se corrige en el próximo sprint.
+2. **`test.fail()`:** la ventaja es que la suite sigue en verde mientras el defecto conocido está abierto, y avisa (se pone en rojo) cuando alguien lo corrige. El riesgo es que el defecto se "normalice" y se olvide, por eso debe ir enlazado a un Issue abierto.
+3. **Conexión que no responde:** no es necesariamente un defecto del producto; es un problema de ambiente. Antes de reportarlo hay que reintentar, probar a mano y en otro navegador o red, y solo reportarlo si se repite con los mismos pasos.
+
+---
+
 <a id="ejecutar-pruebas"></a>
 
 ## 🚀 Cómo Ejecutar las Pruebas
@@ -754,6 +811,8 @@ npx playwright test tests/clase02.spec.ts
 npx playwright test tests/clase10-smoke.spec.ts
 npx playwright test tests/clase10-regression.spec.ts
 npx playwright test tests/tarea10.spec.ts
+npx playwright test tests/clase11.spec.ts --project=firefox
+npx playwright test tests/tarea11.spec.ts --project=firefox
 ```
 
 
